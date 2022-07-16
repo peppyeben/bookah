@@ -1,0 +1,38 @@
+{
+  "name": "bookah",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "watch": "npx tailwindcss -i ./src/styles/input.css -o ./src/styles/styles.css --watch"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.7.0",
+    "@truffle/hdwallet-provider": "^2.0.9",
+    "@walletconnect/web3-provider": "^1.7.8",
+    "bootstrap-icons": "^1.8.3",
+    "buffer": "^6.0.3",
+    "chai": "^4.3.6",
+    "chai-as-promised": "^7.1.1",
+    "core-js": "^3.8.3",
+    "fs": "^0.0.1-security",
+    "ipfs-http-client": "^57.0.3",
+    "tailwindcss": "^3.1.4",
+    "truffle-plugin-verify": "^0.5.26",
+    "truncate-eth-address": "^1.0.2",
+    "tw-elements": "^1.0.0-alpha12",
+    "vue": "^3.2.13",
+    "vue-router": "^4.0.3",
+    "vuex": "^4.0.0",
+    "web3": "^1.7.4",
+    "web3modal": "^1.9.8"
+  },
+  "devDependencies": {
+    "@fortawesome/fontawesome-free": "^6.1.1",
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-router": "~5.0.0",
+    "@vue/cli-plugin-vuex": "~5.0.0",
+    "@vue/cli-service": "~5.0.0"
+  }
+}
