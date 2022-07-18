@@ -68,7 +68,7 @@
       >
         Get BookahTKN
       </button>
-        <a href="https://testnet.binance.org/faucet-smart" class="rounded-md bg-amber-600 text-center text-sm px-3 py-1.5 text-white hover:text-gray-100 mb-1 focus:bg-white focus:outline-none focus:ring-0 active:bg-white focus:shadow-xl active:shadow-lg transition duration-150 ease-in-out" target="_blank">
+        <a href="https://testnet.binance.org/faucet-smart" class="rounded-md bg-amber-600 text-center text-sm px-3 py-1.5 text-white hover:text-gray-100 mb-1 focus:bg-amber-800 focus:outline-none focus:ring-0 active:bg-white focus:shadow-xl active:shadow-lg transition duration-150 ease-in-out" target="_blank">
           Get Test BSC
         </a>
     </div>
