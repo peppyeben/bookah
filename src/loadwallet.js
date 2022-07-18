@@ -1,7 +1,3 @@
-// import * as ticketBookingJSON from "./abis/Bookah.json";
-// import * as tokenJSON from "./abis/BookahTKN.json";
-// import * as faucetJSON from "./abis/BookahTKNFaucet.json";
-
 import bookah from './utils/bookah.js'
 import bookahTKN from './utils/bookahTKN.js'
 import bookahTKNFaucet from './utils/bookahTKNFaucet.js'
@@ -24,9 +20,6 @@ const fromERC = (y, web3) =>
   web3.utils.fromWei(y.toString(), "ether");
 
 async function loadContract(web3, provider) {
-  console.log(bookah)
-  console.log(bookahTKN)
-  console.log(bookahTKNFaucet)
   faucetContract = await new web3.eth.Contract(
     bookahTKNFaucet.abi,
     bookahTKNFaucet.address
@@ -54,5 +47,3 @@ export {
   tokenContract,
   faucetContract,
 };
-
-// truffle migrate --reset --compile-all --network bscTestnet

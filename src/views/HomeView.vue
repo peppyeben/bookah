@@ -23,7 +23,7 @@
     </div>
   </div>
   <div
-    class="relative w-full flex flex-col flex-wrap pb-24 items-center justify-center bg-gray-100 text-gray-500 m-auto"
+    class="relative w-full flex flex-col flex-wrap pb-44 items-center justify-center bg-gray-100 text-gray-500 m-auto"
     v-if="!isLoading"
   >
     <i class="fa fa-6x fa-ticket-alt"></i>

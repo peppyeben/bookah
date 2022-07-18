@@ -6,6 +6,7 @@ truffle-config.js
 abis_
 .env
 src/abis
+README.md
 
 # local env files
 .env.local

@@ -96,14 +96,8 @@ export default createStore({
         walletconnect: {
           package: WalletConnectProvider,
           options: {
-            rpc: {
-              // 56: "https://bsc-dataseed.binance.org/",
-              97: "https://data-seed-prebsc-1-s1.binance.org:8545/" || process.env.VUE_APP_TESTNET_NODE || process.env.VUE_APP_TESTNET,
-              // 5777: "http://127.0.0.1:8545",
-            },
-            // network: "binance",
+            rpc: { 97: "https://data-seed-prebsc-1-s1.binance.org:8545/" },
             network: "binance-testnet",
-            // network: "development",
           },
         },
       };
@@ -253,10 +247,9 @@ export default createStore({
     async loadTicketsFromAddress({ commit, state, dispatch }, payload) {
       if (!state.userAccount) {
         state.web3 = new Web3(
-          new Web3.providers.WebsocketProvider(process.env.VUE_APP_TESTNET_NODE_WSS || "http://data-seed-prebsc-1-s1.binance.org:8545")
-          // new Web3.providers.WebsocketProvider("ws://localhost:8545")
-          // new Web3.providers.WebsocketProvider("http://data-seed-prebsc-1-s1.binance.org:8545")
-        );
+          new Web3.providers.WebsocketProvider(
+            process.env.VUE_APP_TESTNET_NODE_WSS || "http://data-seed-prebsc-1-s1.binance.org:8545")
+      );
         const id = await state.web3.eth.net.getId();
         let contract = await new state.web3.eth.Contract(
           bookah.abi,
