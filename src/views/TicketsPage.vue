@@ -216,7 +216,7 @@
     </template>
   </ErrorModal>
   <div
-    class="grid w-full md:grid-cols-2 md:mx-auto lg:grid-cols-3 pb-24"
+    class="grid w-full md:grid-cols-2 md:mx-auto lg:grid-cols-3 pb-44"
     v-if="tickets"
   >
     <div v-for="(ticket, i) in tickets" :key="ticket.id">

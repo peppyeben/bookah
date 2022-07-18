@@ -89,13 +89,21 @@
           <h5
             class="text-gray-900 text-xl text-left font-medium mb-2 lg:text-right"
           >
-            <span class="flex mr-auto justify-start items-start w-1/12 my-2">
+            <span class="flex mr-auto space-x-2 justify-start items-start w-1/12 my-2">
               <button
                 class="rounded-full appearance-none hover:text-gray-400"
                 @click="showInfo"
               >
                 <i
                   class="fa fa-info-circle transition duration-150 ease-in-out hover:shadow-lg"
+                ></i>
+              </button>
+              <button
+                class="rounded-full appearance-none hover:text-gray-400"
+                @click="showProfile"
+              >
+                <i
+                  class="fa fa-user-circle transition duration-150 ease-in-out hover:shadow-lg"
                 ></i>
               </button>
             </span>
@@ -112,11 +120,11 @@
           >
             <p class="font-bold text-xs md:text-md">
               <i class="fa fa-dollar-sign"></i
-              >{{ (profile.getProfile.balance / 100000).toFixed(2) }}
+              >BKN{{ (profile.getProfile.balance / 100000).toFixed(2) }}
             </p>
             <button
               type="button"
-              class="px-2 py-1 bg-gray-600 text-white font-medium text-xs leading-tight rounded shadow-md hover:bg-white hover:text-gray-900 hover:shadow-lg focus:bg-white focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-100 active:text-gray-900 active:shadow-lg transition duration-150 ease-in-out"
+              class="px-2 py-1 bg-gray-600 text-white font-medium text-xs leading-tight rounded shadow-md hover:bg-white hover:text-gray-900 hover:shadow-lg focus:bg-gray-400 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-100 active:text-gray-900 active:shadow-lg transition duration-150 ease-in-out"
               @click="withdraw"
             >
               Withdraw
@@ -136,7 +144,7 @@
       </ul>
       <router-view></router-view>
     </div>
-    <div v-if="!profile.getProfile">
+    <div v-if="!profile.getProfile" class="pb-24">
       <div
         class="block p-6 rounded-b-lg shadow-md bg-white md:w-2/3 md:mx-auto"
       >
@@ -214,7 +222,7 @@
 <script>
 import { useStore } from "vuex";
 import { onMounted, onBeforeMount, reactive, ref } from "vue";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 import ErrorModal from "@/components/ErrorModal.vue";
 import InfoModal from "@/components/InfoModal.vue";
 
@@ -226,6 +234,7 @@ export default {
   setup() {
     const store = useStore();
     const router = useRouter();
+    const route = useRoute();
     const profile = reactive({
       image: null,
       description: null,
@@ -257,6 +266,15 @@ export default {
     onMounted(async () => {
       isLoading.value = false;
     });
+
+    async function showProfile() {
+      if(profile.getProfile) {
+        console.log(route)
+        console.log(profile.getProfile)
+        router.push({ name: "user", params: { user: profile.getProfile.username } })
+      }
+      
+    }
 
     const showInfo = () => (isInfoShow.value = true);
     const hideInfo = () => (isInfoShow.value = false);
@@ -295,7 +313,6 @@ export default {
           const img = await uploadToIPFS(data.image);
           const details = {
             username: data.username.replace(/\s+/g, ''),
-            // username: data.username.trim(),
             image: `https://ipfs.infura.io/ipfs/${img.path}`,
             description: data.description.trim(),
           };
@@ -353,6 +370,7 @@ export default {
       isInfoShow,
       showInfo,
       hideInfo,
+      showProfile,
     };
   },
 };

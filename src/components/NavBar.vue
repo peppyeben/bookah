@@ -1,11 +1,11 @@
 <template>
   <nav
-    class="relative w-full flex flex-wrap items-center justify-between py-1 bg-gray-100 text-gray-500 hover:text-gray-700 focus:text-gray-700 shadow-lg navbar navbar-expand-lg navbar-light mx-auto md:py-2"
+    class="relative w-full flex flex-wrap items-center justify-between mb-1 py-1 bg-gray-100 text-gray-500 hover:text-gray-700 focus:text-gray-700 shadow-lg navbar navbar-expand-lg navbar-light mx-auto md:py-2"
   >
     <div
       class="container-fluid w-full flex flex-row items-center justify-between px-6"
     >
-      <router-link :to="{ name: 'home' }" class="text-xl text-black font-bold"
+      <router-link :to="{ name: 'home' }" class="text-xl text-black font-bold hover:text-gray-600"
         >Bookah</router-link
       >
       <ul
@@ -94,15 +94,18 @@
         </li>
       </ul>
     </div>
-    <div v-if="$store.state.chainId != '0x61' || $store.state.chainId != '97'">
-      <p class="text-center text-red-800 bg-red-200 w-full py-1 font-bold text-md mb-1">
+    <div
+      class="w-full justify-center items-center"
+      :class="($store.state.chainId == '0x61' || $store.state.chainId == '97') ? 'hidden' : ''"
+    >
+      <p class="text-center text-red-800 bg-red-200 w-full py-1 font-bold text-md">
         Please connect to the Binance Testnet
       </p>
     </div>
   </nav>
 </template>
 <script>
-import { reactive, onMounted, computed } from "vue";
+import { onMounted, ref } from "vue";
 import { useStore } from "vuex";
 import truncateEthAddress from "truncate-eth-address";
 
