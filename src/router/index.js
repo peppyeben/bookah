@@ -11,11 +11,17 @@ const routes = [
     path: "/tickets",
     name: "tickets",
     component: () => import("../views/TicketsPage.vue"),
+    meta: {
+      title: "Tickets",
+    },
   },
   {
     path: "/profile",
     name: "profile",
     component: () => import("../views/ProfilePage.vue"),
+    meta: {
+      title: "Profile",
+    },
     children: [
       {
         path: "/profile/bought",
@@ -33,10 +39,13 @@ const routes = [
     path: "/:user",
     name: "user",
     component: () => import("../views/UserTickets.vue"),
+    meta: {
+      title: "User",
+    },
     children: [
       {
         path: "/:user/:url",
-        redirect: "/"
+        redirect: "/",
       },
     ],
   },
@@ -47,12 +56,17 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach(() => {
+router.beforeEach((to, from, next) => {
   if (
     document.querySelector("#navbarSupportedContent").classList.contains("show")
   ) {
     document.querySelector("#navbarSupportedContent").classList.remove("show");
   }
+
+  window.document.title =
+    to.meta && to.meta.title ? to.meta.title : "Bookah - Book & Create Tickets";
+
+  next()
 });
 
 export default router;

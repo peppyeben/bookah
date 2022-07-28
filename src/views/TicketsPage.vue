@@ -393,6 +393,7 @@ export default {
       isCreateLoading.value = false;
       await loadData();
       isLoading.value = false;
+      store.commit("setInfoMessage", null);
     }
 
     async function uploadToIPFS(x) {

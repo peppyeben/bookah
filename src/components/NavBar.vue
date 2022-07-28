@@ -5,7 +5,9 @@
     <div
       class="container-fluid w-full flex flex-row items-center justify-between px-6"
     >
-      <router-link :to="{ name: 'home' }" class="text-xl text-black font-bold hover:text-gray-600"
+      <router-link
+        :to="{ name: 'home' }"
+        class="text-xl text-black font-bold hover:text-gray-600"
         >Bookah</router-link
       >
       <ul
@@ -27,15 +29,15 @@
         </li>
         <li class="nav-item px-2" v-if="$store.state.userAccount != null">
           <button
-            class="rounded-full bg-gray-800 text-sm px-3 py-1 text-gray-300 hover:text-gray-100 mb-1"
-            disabled
+            class="rounded-full bg-emerald-400 text-sm px-3 py-1 text-gray-900 hover:text-white hover:bg-emerald-600 mb-1"
+            @click="disconnect()"
           >
             {{ ethAddress($store.state.userAccount) }}
           </button>
         </li>
         <li class="nav-item px-2" v-else>
           <button
-            class="rounded-full bg-gray-800 text-sm px-3 py-1 text-gray-300 hover:text-gray-100 mb-1"
+            class="rounded-full bg-gray-800 text-sm px-3 py-1 text-gray-300 hover:text-gray-100 hover:bg-gray-900 mb-1"
             @click="connect()"
           >
             Connect Wallet
@@ -77,16 +79,15 @@
         </li>
         <li class="nav-item px-2" v-if="$store.state.userAccount != null">
           <button
-            class="rounded-full bg-gray-800 text-sm px-3 py-1.5 text-gray-300 hover:text-gray-100 mb-1 focus:bg-white focus:text-gray-700 focus:outline-none focus:ring-0 active:bg-gray-800 focus:shadow-xl active:shadow-lg transition duration-150 ease-in-out"
-            @click="connect()"
-            disabled
+            class="rounded-full bg-emerald-400 text-sm px-3 py-1.5 mb-1 text-gray-900 hover:text-white hover:bg-emerald-600 focus:outline-none focus:ring-0 focus:shadow-xl active:shadow-lg transition duration-150 ease-in-out"
+            @click="disconnect()"
           >
             {{ ethAddress($store.state.userAccount) }}
           </button>
         </li>
         <li class="nav-item px-2" v-else>
           <button
-            class="rounded-full bg-gray-800 text-sm px-3 py-1.5 text-gray-300 hover:text-gray-100 mb-1 focus:bg-white focus:text-gray-700 focus:outline-none focus:ring-0 active:bg-gray-800 focus:shadow-xl active:shadow-lg transition duration-150 ease-in-out"
+            class="rounded-full bg-gray-800 text-sm px-3 py-1.5 text-gray-300 hover:text-gray-100 hover:bg-gray-900 mb-1 focus:bg-white focus:text-gray-700 focus:outline-none focus:ring-0 active:bg-gray-800 focus:shadow-xl active:shadow-lg transition duration-150 ease-in-out"
             @click="connect()"
           >
             Connect Wallet
@@ -96,10 +97,19 @@
     </div>
     <div
       class="w-full justify-center items-center"
-      :class="($store.state.chainId == '0x61' || $store.state.chainId == '97') ? 'hidden' : ''"
+      :class="
+        $store.state.chainId == '0x4' || $store.state.chainId == '4'
+          ? 'hidden'
+          : ''
+      "
     >
-      <p class="text-center text-red-800 bg-red-200 w-full py-1 font-bold text-md">
-        Please connect to the Binance Testnet
+      <p
+        class="text-center text-red-700 bg-red-200 w-full py-1 font-bold text-md px-3"
+      >
+        Please connect to the
+        <button class="appearance-none" @click="openTestnetConfig">
+          <span class="text-red-900 underline"> Rinkeby Testnet </span>
+        </button>
       </p>
     </div>
   </nav>
@@ -116,17 +126,20 @@ export default {
 
     onMounted(async () => {});
 
-    async function connect() {
-      await store.dispatch("connectWallet");
-    }
-
-    function ethAddress(x) {
-      return truncateEthAddress(x);
-    }
+    const connect = () => store.dispatch("connectWallet");
+    const disconnect = () => store.dispatch("disconnectWallet");
+    const ethAddress = (x) => truncateEthAddress(x);
+    const openTestnetConfig = () =>
+      window.open(
+        "https://coin98.net/add-rinkeby-to-metamask",
+        "_blank"
+      );
 
     return {
       connect,
+      disconnect,
       ethAddress,
+      openTestnetConfig,
     };
   },
 };

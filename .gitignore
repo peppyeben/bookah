@@ -1,12 +1,12 @@
 .DS_Store
 node_modules
 .secret
-truffle-config.js
+.bscscan_api_key
+.matic_api_key
 /dist
 abis_
 .env
 src/abis
-README.md
 
 # local env files
 .env.local

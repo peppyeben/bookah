@@ -258,7 +258,7 @@ export default {
         store.commit("setErrorMessage", "Connect a wallet to view profile");
         router.push({ name: "home" });
       } else {
-        loadData();
+        await loadData();
         setProfileDetails();
       }
     });
@@ -269,9 +269,8 @@ export default {
 
     async function showProfile() {
       if(profile.getProfile) {
-        console.log(route)
-        console.log(profile.getProfile)
-        router.push({ name: "user", params: { user: profile.getProfile.username } })
+        const routeData = router.resolve({ name: 'user', params: { user: profile.getProfile.username } })
+        window.open(routeData.href, "_blank")
       }
       
     }
