@@ -49,6 +49,7 @@ export default {
 		});
 
 		onBeforeMount(async () => {
+			await store.dispatch("boughtTickets");
 			await loadBoughtTickets();
 		});
 

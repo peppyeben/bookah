@@ -30,7 +30,7 @@
     <div
       class="flex justify-center items-center flex-col space-y-2 px-5 py-2 sm:p-3 my-1"
     >
-      <h2 class="text-base sm:text-xl lg:text-2xl font-bold text-center">
+      <h2 class="text-lg sm:text-xl lg:text-2xl font-extrabold text-center">
         Create/Book tickets for your next event.
       </h2>
       <h6
@@ -40,42 +40,50 @@
         Connect a wallet to get started.
       </h6>
       <button
-        class="rounded-full bg-gray-800 text-sm px-3 py-1.5 text-gray-300 hover:text-gray-100 mb-1 focus:bg-white focus:text-gray-700 focus:outline-none focus:ring-0 active:bg-gray-800 focus:shadow-xl active:shadow-lg transition duration-150 ease-in-out"
+        class="rounded-full bg-emerald-400 text-sm px-3 py-1.5 mb-1 text-gray-900 hover:text-white hover:bg-emerald-600 focus:outline-none focus:ring-0 focus:shadow-xl active:shadow-lg transition duration-150 ease-in-out"
         v-if="$store.state.userAccount != null"
         @click.prevent="disconnect"
       >
         {{ ethAddress($store.state.userAccount) }}
       </button>
       <button
-        class="rounded-full bg-gray-800 text-sm px-3 py-1.5 text-gray-300 hover:text-gray-100 mb-1 focus:bg-white focus:text-gray-700 focus:outline-none focus:ring-0 active:bg-white focus:shadow-xl active:shadow-lg transition duration-150 ease-in-out"
+        class="rounded-full bg-gray-800 text-sm px-3 py-1.5 text-gray-300 hover:text-gray-100 hover:bg-gray-900 mb-1 focus:bg-white focus:text-gray-700 focus:outline-none focus:ring-0 active:bg-white focus:shadow-xl active:shadow-lg transition duration-150 ease-in-out"
         v-else
         @click.prevent="connect"
       >
         Connect Wallet
       </button>
     </div>
-    <div class="flex justify-center items center mx-auto space-x-3 mb-1">
+    <div class="flex justify-center items center mx-auto px-5 space-x-3 mb-1">
       <h6
-        class="text-center text-lg font-semibold px-5 sm:text-sm md:text-base"
+        class="text-center text-base sm:text-lg font-semibold px-5 sm:text-sm md:text-base"
       >
-        Get BookahTKN to purchase tickets & test BSC for gas fees.
+        Get BookahTKN to purchase tickets & test $ETH for gas fees.
       </h6>
     </div>
-    <div class="flex flex-col justify-center items center mx-auto md:space-x-3 md:flex-row">
+    <div class="flex flex-col justify-center items center mx-auto px-3 md:space-x-3 md:flex-row">
       <button
-        class="rounded-md bg-gray-800 text-sm px-3 py-1.5 text-gray-300 hover:text-gray-100 mb-1 focus:bg-white focus:text-gray-700 focus:outline-none focus:ring-0 active:bg-white focus:shadow-xl active:shadow-lg transition duration-150 ease-in-out"
+        class="rounded-md bg-gray-800 text-sm px-3 py-1.5 text-gray-300 hover:text-gray-100 hover:bg-gray-900 mb-1 focus:bg-white focus:text-gray-700 focus:outline-none focus:ring-0 active:bg-white focus:shadow-xl active:shadow-lg transition duration-150 ease-in-out"
         @click.prevent="claim"
       >
         Get BookahTKN
       </button>
-        <a href="https://testnet.binance.org/faucet-smart" class="rounded-md bg-amber-600 text-center text-sm px-3 py-1.5 text-white hover:text-gray-100 mb-1 focus:bg-amber-800 focus:outline-none focus:ring-0 active:bg-white focus:shadow-xl active:shadow-lg transition duration-150 ease-in-out" target="_blank">
-          Get Test BSC
+        <a href="https://faucets.chain.link/rinkeby" class="rounded-md bg-emerald-600 text-center text-sm px-3 py-1.5 text-white hover:text-gray-100 hover:bg-emerald-500 mb-1 focus:bg-emerald-800 focus:outline-none focus:ring-0 active:bg-white focus:shadow-xl active:shadow-lg transition duration-150 ease-in-out" target="_blank">
+          Get Test ETH
         </a>
     </div>
     <div class="flex flex-col justify-center items-center mt-1 mx-auto md:space-x-3 md:flex-row">
       <span class="font-bold ">
         {{ $store.state.tokenBalance }} $BKN
       </span>
+    </div>
+    <div class="flex flex-col justify-center items-center mt-1 mx-auto md:space-x-3 md:flex-row" v-if="$store.state.tokenAddress">
+      <a :href="rinkebyURL" class="rounded-md bg-emerald-600 text-center text-sm px-3 py-1.5 text-white hover:text-gray-100 hover:bg-emerald-500 mb-1 focus:bg-emerald-800 focus:outline-none focus:ring-0 active:bg-white focus:shadow-xl active:shadow-lg transition duration-150 ease-in-out" target="_blank">
+        {{ $store.state.tokenAddress }}
+      </a>
+      <button class="appearance-none rounded px-1 focus:shadow-lg active:shadow-xl" @click="copyAddress($store.state.tokenAddress)">
+        <i class="fa fa-copy hover:text-slate-400"></i>  
+      </button>
     </div>
   </div>
 </template>
@@ -93,10 +101,12 @@ export default {
   setup() {
     const store = useStore();
     const isLoading = ref(true);
+    const rinkebyURL = ref(null);
 
-    onMounted(async () => {
+    onMounted(() => {
+      store.dispatch("main");
+      rinkebyURL.value = `https://rinkeby.etherscan.io/address/${store.state.tokenAddress}`
       isLoading.value = false;
-      await store.dispatch("main");
     });
 
     const connect = () => store.dispatch("connectWallet");
@@ -104,12 +114,18 @@ export default {
     const ethAddress = x => truncateEthAddress(x);
     const claim = async () => await store.dispatch("claimToken");
 
+    function copyAddress(x) {
+      if(x) { navigator.clipboard.writeText(x) }
+    }
+
     return {
       isLoading,
       connect,
       ethAddress,
       disconnect,
       claim,
+      rinkebyURL,
+      copyAddress,
     };
   },
 };

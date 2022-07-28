@@ -7,6 +7,7 @@ import bookahTKNFaucet from './utils/bookahTKNFaucet.js'
 let tokenContract;
 let ticketBookingContract;
 let faucetContract;
+let bookahTKNAddress;
 
 const bytesToStr = (y, web3) => web3.utils.hexToAscii(y);
 const strToBytes = (y, web3) => web3.utils.asciiToHex(y);
@@ -33,6 +34,7 @@ async function loadContract(web3, provider) {
     bookahTKN.abi,
     bookahTKN.address
   );
+  bookahTKNAddress = bookahTKN.address
 }
 
 export {
@@ -46,4 +48,5 @@ export {
   fromERC,
   tokenContract,
   faucetContract,
+  bookahTKNAddress,
 };
