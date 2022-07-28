@@ -68,7 +68,7 @@
       >
         Get BookahTKN
       </button>
-        <a href="https://faucets.chain.link/rinkeby" class="rounded-md bg-emerald-600 text-center text-sm px-3 py-1.5 text-white hover:text-gray-100 hover:bg-emerald-500 mb-1 focus:bg-emerald-800 focus:outline-none focus:ring-0 active:bg-white focus:shadow-xl active:shadow-lg transition duration-150 ease-in-out" target="_blank">
+        <a href="https://rinkebyfaucet.com/" class="rounded-md bg-emerald-600 text-center text-sm px-3 py-1.5 text-white hover:text-gray-100 hover:bg-emerald-500 mb-1 focus:bg-emerald-800 focus:outline-none focus:ring-0 active:bg-white focus:shadow-xl active:shadow-lg transition duration-150 ease-in-out" target="_blank">
           Get Test ETH
         </a>
     </div>
